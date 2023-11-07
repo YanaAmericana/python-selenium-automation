@@ -2,14 +2,6 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 from time import sleep
 
-@when('Click Sing in')
-def click_sign_in(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='@web/AccountLink']").click()
-    sleep(3)
-
-    account_modal = context.driver.find_element(By.CSS_SELECTOR, "[data-test='modal-drawer-heading']")
-    assert "Account" in account_modal.text, f"Account modal in not present"
-
 
 @when('Confirm Sign in')
 def confirm_sign_in(context):
