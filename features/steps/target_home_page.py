@@ -1,6 +1,10 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 from behave import given, when, then
 from time import sleep
+
+ACCOUNT_MODAL = By.CSS_SELECTOR, "[data-test='modal-drawer-heading']"
 
 @given('Open target main page')
 def open_target(context):
@@ -17,10 +21,10 @@ def search_product(context, product):
 @when('Click Sing in')
 def click_sign_in(context):
     context.driver.find_element(By.CSS_SELECTOR, "[data-test='@web/AccountLink']").click()
-    sleep(3)
-
-    account_modal = context.driver.find_element(By.CSS_SELECTOR, "[data-test='modal-drawer-heading']")
-    assert "Account" in account_modal.text, f"Account modal in not present"
+    context.driver.wait.until(
+        EC.presence_of_element_located(ACCOUNT_MODAL),
+        message="Account modal in not present"
+    )
 
 
 @when('Click on cart icon')

@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 from behave import given, when, then
 from time import sleep
 
@@ -17,13 +19,12 @@ def input_search(context, search_word):
     search = context.driver.find_element(*SEARCH_INPUT)
     search.clear()
     search.send_keys(search_word)
-    sleep(4)
 
 
 @when('Click on search icon')
 def click_search_icon(context):
+    context.driver.wait.until(EC.element_to_be_clickable((By.NAME, 'btnK')), message='Search btn not clickable')
     context.driver.find_element(*SEARCH_SUBMIT).click()
-    sleep(1)
 
 
 @then('Product results for {search_word} are shown')

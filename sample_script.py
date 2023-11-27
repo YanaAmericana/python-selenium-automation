@@ -33,7 +33,6 @@ search.send_keys('Table')
 
 # wait for 4 sec
 # sleep(4)
-sleep(7)  # stop for number of seconds
 
 # defined in the code, where we use
 # checks for EC every 500ms

@@ -8,6 +8,8 @@ from time import sleep
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[data-test='addToCartButton']")
 SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, "h4[class*='StyledHeading']")
 SEARCH_RESULT_TXT = (By.CSS_SELECTOR, "[data-test='resultsHeading']")
+SEARCH_PRODUCT_IMG = (By.CSS_SELECTOR, "[class*='PictureSecondary']")
+SEARCH_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='product-title']")
 
 
 @when('Click on Add to Cart button')
@@ -48,24 +50,26 @@ def choose_item(context):
     results = context.driver.find_elements(By.CSS_SELECTOR, "[data-test='@web/ProductCard/ProductCardImage']")
     if len(results) > 0:
         results[0].click()
-    sleep(10)
 
 
 @then('I confirm product to add to shopping cart')
 def confirm_add_item_to_cart(context):
-    add_to_cart_btn = context.driver.find_element(By.CSS_SELECTOR, "[data-test='orderPickupButton']")
+    context.driver.wait.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "[data-test='orderPickupButton']")),
+        message="Add to cart btn is not present"
+    )
 
-    assert add_to_cart_btn.is_displayed(), f"{add_to_cart_btn} is not present"
-    add_to_cart_btn.click()
-    sleep(7)
+    context.driver.find_element(By.CSS_SELECTOR, "[data-test='orderPickupButton']").click()
 
 
 @when('I click on view shopping cart')
 def click_view_shopping_cart(context):
-    view_cart_btn = context.driver.find_element(By.CSS_SELECTOR, "[href='/cart']")
+    context.driver.wait.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "[href='/cart']")),
+        message="View cart btn is not present"
+    )
 
-    assert view_cart_btn.is_displayed(), f"{view_cart_btn} is not present"
-    view_cart_btn.click()
+    context.driver.find_element(By.CSS_SELECTOR, "[href='/cart']").click()
 
 
 # reusable var and url search (more than 2 words!):
@@ -81,3 +85,13 @@ def verify_search_url(context, expected_keyword):
         f'Expected {expected_keyword} not in {context.driver.current_url}'
 
 
+@then("Verify search results have images")
+def verify_products_image(context):
+    product_imgs = context.driver.find_elements(*SEARCH_PRODUCT_IMG)
+    assert len(product_imgs) == 4, f"only {len(product_imgs)} have images"
+
+
+@then("Verify search results have product name")
+def verify_product_name(context):
+    product_names = context.driver.find_elements(*SEARCH_PRODUCT_NAME)
+    assert len(product_names) == 4, f"Only {len(product_names)} have images"

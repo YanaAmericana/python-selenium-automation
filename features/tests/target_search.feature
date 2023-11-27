@@ -57,3 +57,11 @@ Feature: Search tests
     And Open cart page
     Then Verify cart has 1 item(s)
     And Verify cart has correct product
+
+
+  Scenario: Searched product has name a and a image
+    Given Open target main page
+    When Search for coffee
+    Then Verify search worked
+    And Verify search results have images
+    And Verify search results have product name
