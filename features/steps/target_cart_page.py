@@ -9,16 +9,11 @@ CART_ITEM_TITLE = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
 
 @then('Verify cart is empty message shown')
 def verify_empty_cart_message(context):
-    message = context.driver.find_element(By.XPATH, "//div[@data-test='boxEmptyMsg']")
-
-    expected_result = "Your cart is empty"
-    actual_result = context.driver.find_element(By.XPATH, "//div[@data-test='boxEmptyMsg']").text
-    assert expected_result == actual_result and message.is_displayed(), f"{expected_result} in not visible"
+    context.app.cart_page.verify_message_text()
 
 
 @then('Verify item is in shopping cart')
 def verify_item_in_cart(context):
-
     element = context.driver.find_element(By.CSS_SELECTOR, "[data-test='cartItem-title']").text
     element = element.title()
     assert "Coffee" in element, f"items in the cart does not contain Coffee"

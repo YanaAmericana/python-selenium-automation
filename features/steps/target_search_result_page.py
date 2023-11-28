@@ -7,7 +7,6 @@ from time import sleep
 
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[data-test='addToCartButton']")
 SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, "h4[class*='StyledHeading']")
-SEARCH_RESULT_TXT = (By.CSS_SELECTOR, "[data-test='resultsHeading']")
 SEARCH_PRODUCT_IMG = (By.CSS_SELECTOR, "[class*='PictureSecondary']")
 SEARCH_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='product-title']")
 
@@ -26,16 +25,6 @@ def store_product_name(context):
         message='Product name not shown in side navigation'
     )
     context.product_name = context.driver.find_element(*SIDE_NAV_PRODUCT_NAME).text
-
-@then('Verify search worked')
-def verify_search(context):
-    search_results_header = context.driver.find_element(By.CSS_SELECTOR, "[data-test='resultsHeading']").text
-    assert 'coffee' in search_results_header, f'Expected text coffee not in {search_results_header}'
-
-
-@then('Verify search result url')
-def verify_search_url(context):
-    assert 'coffee' in context.driver.current_url
 
 
 @then('Choose shop in store option')
@@ -75,14 +64,12 @@ def click_view_shopping_cart(context):
 # reusable var and url search (more than 2 words!):
 @then('Verify search worked for {product}')
 def verify_search(context, product):
-    search_results_header = context.driver.find_element(*SEARCH_RESULT_TXT).text
-    assert product in search_results_header, f'Expected text {product} not in {search_results_header}'
+    context.app.search_results_page.verify_search_result(product)
 
 
 @then('Verify {expected_keyword} in search result url')
 def verify_search_url(context, expected_keyword):
-    assert expected_keyword in context.driver.current_url, \
-        f'Expected {expected_keyword} not in {context.driver.current_url}'
+    context.app.search_results_page.verify_search_url(expected_keyword)
 
 
 @then("Verify search results have images")

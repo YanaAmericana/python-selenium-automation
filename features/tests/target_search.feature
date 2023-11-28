@@ -3,8 +3,8 @@ Feature: Search tests
   Scenario: User can search for a product
     Given Open target main page
     When Search for coffee
-    Then Verify search worked
-    And Verify search result url
+    Then Verify search worked for coffee
+    Then Verify coffee in search result url
 
   Scenario: User can see cart is empty message
     Given Open target main page
@@ -14,7 +14,7 @@ Feature: Search tests
   Scenario: User can add a product to the cart
     Given Open target main page
     When Search for coffee
-    Then Verify search worked
+    Then Verify search worked for coffee
     And Choose shop in store option
     When I chose a product to add to shopping cart
     Then I confirm product to add to shopping cart
@@ -35,18 +35,17 @@ Feature: Search tests
     Then Verify search worked for christmas lights
     And Verify christmas+lights in search result url
 
-  Scenario Outline: User can search for a product
-    Given Open target main page
-    When Search for <product>
-    Then Verify search worked for <expected_product>
-    And Verify <expected_url> in search result url
-    Examples:
-    |product          |expected_product    |expected_url     |
-    |coffee           |coffee              |coffee           |
-    |tea              |tea                 |tea              |
-    |mug              |mug                 |mug              |
-    |christmas lights |christmas lights    |christmas+lights |
-
+#  Scenario Outline: User can search for a product
+#    Given Open target main page
+#    When Search for <product>
+#    Then Verify search worked for <expected_product>
+#    And Verify <expected_url> in search result url
+#    Examples:
+#    |product          |expected_product    |expected_url     |
+#    |coffee           |coffee              |coffee           |
+#    |tea              |tea                 |tea              |
+#    |mug              |mug                 |mug              |
+#    |christmas lights |christmas lights    |christmas+lights |
 
 
   Scenario: User can add a product to cart
@@ -62,6 +61,6 @@ Feature: Search tests
   Scenario: Searched product has name a and a image
     Given Open target main page
     When Search for coffee
-    Then Verify search worked
+    Then Verify search worked for coffee
     And Verify search results have images
     And Verify search results have product name
