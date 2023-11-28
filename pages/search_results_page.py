@@ -8,7 +8,7 @@ class SearchResultsPage(Page):
     SEARCH_RESULT_TXT = (By.CSS_SELECTOR, "[data-test='resultsHeading']")
 
     def verify_search_result(self, product):
-        search_results_header = self.driver.find_element(*self.SEARCH_RESULT_TXT).text
+        search_results_header = self.find_element(*self.SEARCH_RESULT_TXT).text
         assert product in search_results_header, \
             f'Expected text {product} not in {search_results_header}'
 

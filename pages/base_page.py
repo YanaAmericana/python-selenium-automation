@@ -9,7 +9,7 @@ class Page:
         self.driver.find_element(*locator).click()
 
     def find_element(self, *locator):
-        self.driver.find_element(*locator)
+        return self.driver.find_element(*locator)
 
     def input(self, text, *locator):
         self.driver.find_element(*locator).send_keys(text)
