@@ -3,5 +3,10 @@ Feature: User able to navigate in Target circle
   # Enter feature description here
 
   Scenario: Verify there are 5 options in Benefits section
-    Given Open target circle page
+    Given Open circle page
     Then Verify there are 5 benefit boxes
+
+
+  Scenario: User can click through Circle tabs
+    Given Open Circle page
+    Then Verify that clicking though Circle tabs works
