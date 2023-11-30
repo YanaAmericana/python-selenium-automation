@@ -5,5 +5,9 @@ Feature: Sign In
   Scenario: Logged out user can sign in
     Given Open target main page
     When Click Sing in
-    And Confirm Sign in
+    And Confirm Sign in from right navigation menu
     Then Sign in page is loaded
+    When Input email
+    And Input password
+    And Click Sing in button
+    Then Verify user is logged in

@@ -42,3 +42,8 @@ def click_and_verify_sizes(context):
         actual_sizes.append(selected_size)
 
         assert list_sizes == actual_sizes, f"Shown sizes {list_sizes} do not match selected sizes {actual_sizes}"
+
+
+@then('I confirm product to add to shopping cart')
+def confirm_add_item_to_cart(context):
+    context.app.product_details_page.click_add_to_cart_btn()

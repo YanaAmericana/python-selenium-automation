@@ -16,9 +16,9 @@ Feature: Search tests
     When Search for coffee
     Then Verify search worked for coffee
     And Choose shop in store option
-    When I chose a product to add to shopping cart
+    When I choose a product to add to shopping cart
     Then I confirm product to add to shopping cart
-    When I click on view shopping cart
+    When Click view shopping cart in right nav menu
     Then Verify item is in shopping cart
 
 

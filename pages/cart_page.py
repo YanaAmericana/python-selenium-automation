@@ -4,7 +4,21 @@ from pages.base_page import Page
 
 
 class CartPage(Page):
-    MESSAGE = By.XPATH, "//div[@data-test='boxEmptyMsg']"
+    MESSAGE = (By.XPATH, "//div[@data-test='boxEmptyMsg']")
+    CART_ITEM_NAME = (By.CSS_SELECTOR, "[data-test='cartItem-title']")
+    CART_SUMMARY = (By.CSS_SELECTOR, "[class*='CartSummarySpan']")
+    CART_SUMMARY_HEADER = (By.CSS_SELECTOR, ".jaXVgU")
 
     def verify_message_text(self):
         self.verify_text('Your cart is empty', *self.MESSAGE)
+
+    def verify_item_in_cart(self):
+        self.verify_partial_text("Coffee", *self.CART_ITEM_NAME)
+        self.verify_partial_text("1", *self.CART_SUMMARY_HEADER)
+
+    def find_amount_items_in_cart(self):
+        return self.find_element(*self.CART_SUMMARY).text
+
+    def find_item_name_in_cart(self):
+        return self.find_element(*self.CART_ITEM_NAME).text
+

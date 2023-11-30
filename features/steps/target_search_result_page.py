@@ -6,60 +6,39 @@ from time import sleep
 
 
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[data-test='addToCartButton']")
-SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, "h4[class*='StyledHeading']")
 SEARCH_PRODUCT_IMG = (By.CSS_SELECTOR, "[class*='PictureSecondary']")
 SEARCH_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='product-title']")
 
 
 @when('Click on Add to Cart button')
 def click_add_to_cart(context):
-    context.driver.find_element(*ADD_TO_CART_BTN).click()  # find_element by default it will pick 1st one
+    context.app.search_results_page.click_add_to_cart_btn()
+    #context.driver.find_element(*ADD_TO_CART_BTN).click() # find_element by default it will pick 1st one
     # all_buttons = context.driver.find_elements(*ADD_TO_CART_BTN)
     # all_buttons[2].click()
 
 
 @when('Store product name')
 def store_product_name(context):
-    context.driver.wait.until(
-        EC.visibility_of_element_located(SIDE_NAV_PRODUCT_NAME),
-        message='Product name not shown in side navigation'
-    )
-    context.product_name = context.driver.find_element(*SIDE_NAV_PRODUCT_NAME).text
+    product_name = context.app.search_results_page.find_product_name()
+    context.product_name = product_name.text
+
 
 
 @then('Choose shop in store option')
 def choose_shop_in_store(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='facet-card-Shop in store']").click()
-    # wait for results to load
-    sleep(5)
+    context.app.search_results_page.click_shop_in_store_option()
+    sleep(5) # wait for results to load
 
 
-@when('I chose a product to add to shopping cart')
+@when('I choose a product to add to shopping cart')
 def choose_item(context):
-    results = context.driver.find_elements(By.CSS_SELECTOR, "[data-test='@web/ProductCard/ProductCardImage']")
-    if len(results) > 0:
-        results[0].click()
+    context.app.search_results_page.choose_item_to_add()
 
 
-@then('I confirm product to add to shopping cart')
-def confirm_add_item_to_cart(context):
-    context.driver.wait.until(EC.presence_of_element_located(
-        (By.CSS_SELECTOR, "[data-test='orderPickupButton']")),
-        message="Add to cart btn is not present"
-    )
-
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='orderPickupButton']").click()
-
-
-@when('I click on view shopping cart')
+@when('Click view shopping cart in right nav menu')
 def click_view_shopping_cart(context):
-    context.driver.wait.until(EC.presence_of_element_located(
-        (By.CSS_SELECTOR, "[href='/cart']")),
-        message="View cart btn is not present"
-    )
-
-    context.driver.find_element(By.CSS_SELECTOR, "[href='/cart']").click()
-
+    context.app.product_details_page.click_view_cart_right_nav()
 
 # reusable var and url search (more than 2 words!):
 @then('Verify search worked for {product}')

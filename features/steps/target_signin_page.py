@@ -2,14 +2,26 @@ from selenium.webdriver.common.by import By
 from behave import given, when, then
 
 
-
-@when('Confirm Sign in')
-def confirm_sign_in(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='accountNav-signIn']").click()
-
-
 @then('Sign in page is loaded')
 def sign_in_page_is_loaded(context):
-    result = context.driver.find_element(By.CSS_SELECTOR, ".kcHdEa").text
-    expected_result = "Sign into your Target account"
-    assert expected_result in result, f"{expected_result} is not found in {result}"
+    context.app.sign_in_page.verify_sign_in_header()
+
+
+@when('Input email')
+def input_email(context):
+    context.app.sign_in_page.input_email()
+
+
+@when('Input password')
+def input_password(context):
+    context.app.sign_in_page.input_pw()
+
+
+@when('Click Sing in button')
+def click_login_btn(context):
+    context.app.sign_in_page.click_login_btn()
+
+
+@then('Verify user is logged in')
+def verify_user_logged_in(context):
+    context.app.sign_in_page.user_logged_in()

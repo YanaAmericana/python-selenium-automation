@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from behave import given, when, then
 
@@ -17,11 +16,12 @@ def search_product(context, product):
 
 @when('Click Sing in')
 def click_sign_in(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[data-test='@web/AccountLink']").click()
-    context.driver.wait.until(
-        EC.presence_of_element_located(ACCOUNT_MODAL),
-        message="Account modal in not present"
-    )
+    context.app.main_page.click_on_sign_in()
+
+
+@when('Confirm Sign in from right navigation menu')
+def confirm_sign_in(context):
+    context.app.main_page.confirm_click_sign_in()
 
 
 @when('Click on cart icon')
