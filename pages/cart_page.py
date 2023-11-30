@@ -16,9 +16,8 @@ class CartPage(Page):
         self.verify_partial_text("Coffee", *self.CART_ITEM_NAME)
         self.verify_partial_text("1", *self.CART_SUMMARY_HEADER)
 
-    def find_amount_items_in_cart(self):
-        return self.find_element(*self.CART_SUMMARY).text
+    def find_amount_items_in_cart(self, expected_amount):
+        self.verify_partial_text(expected_amount,*self.CART_SUMMARY)
 
-    def find_item_name_in_cart(self):
-        return self.find_element(*self.CART_ITEM_NAME).text
-
+    def find_item_name_in_cart(self, expected_name):
+        self.verify_text(expected_name, *self.CART_ITEM_NAME)

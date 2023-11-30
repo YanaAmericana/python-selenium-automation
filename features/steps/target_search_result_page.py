@@ -20,9 +20,7 @@ def click_add_to_cart(context):
 
 @when('Store product name')
 def store_product_name(context):
-    product_name = context.app.search_results_page.find_product_name()
-    context.product_name = product_name.text
-
+    context.product_name = context.app.search_results_page.find_product_name()
 
 
 @then('Choose shop in store option')

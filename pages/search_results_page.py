@@ -26,8 +26,7 @@ class SearchResultsPage(Page):
             results[0].click()
 
     def click_add_to_cart_btn(self):
-        self.find_element(*self.ADD_TO_CART_BTN).click()
+        self.click(*self.ADD_TO_CART_BTN)
 
     def find_product_name(self):
-        return self.find_element(*self.SIDE_NAV_PRODUCT_NAME)
-
+        return self.wait_for_element_appear(*self.SIDE_NAV_PRODUCT_NAME).text
