@@ -23,3 +23,6 @@ class HelpPage(Page):
 
     def verify_promotions_opened(self):
         self.wait_for_element_appear(*self.HEADER_PROMOTIONS)
+
+    def verify_circle_page_opened(self):
+        self.verify_partial_url('https://www.target.com/circle')

@@ -4,10 +4,11 @@ from pages.base_page import Page
 
 
 class SignInPage(Page):
-    SIGN_IN_HEADER = By.CSS_SELECTOR, ".kcHdEa"
-    EMAIL_INPUT_FIELD = By.ID, "username"
-    PW_INPUT_FIELD = By.ID, "password"
-    LOGIN_BTN = By.ID, "login"
+    EMAIL_INPUT_FIELD = (By.ID, "username")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, "[data-test='authAlertDisplay']")
+    LOGIN_BTN = (By.ID, "login")
+    PW_INPUT_FIELD = (By.ID, "password")
+    SIGN_IN_HEADER = (By.CSS_SELECTOR, ".kcHdEa")
     TERMS_CONDITIONS_LINK = (By.CSS_SELECTOR, "[aria-label*='terms']")
 
 
@@ -20,8 +21,16 @@ class SignInPage(Page):
     def input_email(self):
         self.input("", *self.EMAIL_INPUT_FIELD)
 
+    def input_incorrect_email(self):
+        self.input("jhglygliu@testing.com", *self.EMAIL_INPUT_FIELD)
+
+
     def input_pw(self):
         self.input("", *self.PW_INPUT_FIELD)
+        sleep(1)
+
+    def input_incorrect_pw(self):
+        self.input("Test@12345", *self.PW_INPUT_FIELD)
         sleep(1)
 
     def click_login_btn(self):
@@ -32,3 +41,6 @@ class SignInPage(Page):
 
     def click_terms_conditions(self):
         self.click(*self.TERMS_CONDITIONS_LINK)
+
+    def verify_error_message(self, text_message):
+        self.verify_partial_text(text_message, *self.ERROR_MESSAGE)

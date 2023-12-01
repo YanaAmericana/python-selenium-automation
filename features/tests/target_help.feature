@@ -16,3 +16,8 @@ Feature: User is able navigate in target help page
     Then Verify Returns page opened
     When Select Help topic Promotions & Coupons
     Then Verify Current promotions page opened
+
+  Scenario: User can click on help topic in the footer of the page
+    Given Open target main page
+    When Click on target circle link in the footer
+    Then Verify circle page is loaded

@@ -38,3 +38,8 @@ def hover_signin(context):
 def verify_arrow(context):
     context.app.main_page.verify_signin_arrow_shown()
 
+
+@when('Click on target circle link in the footer')
+def click_circle_link_in_footer(context):
+    context.app.main_page.scroll_to_bottom()
+    context.app.main_page.click_circle_link_footer()

@@ -25,6 +25,15 @@ def click_login_btn(context):
     context.app.sign_in_page.click_login_btn()
 
 
+@when('Input incorrect email')
+def input_incorrect_email(context):
+    context.app.sign_in_page.input_incorrect_email()
+
+
+@when('Input incorrect password')
+def input_incorrect_password(context):
+    context.app.sign_in_page.input_incorrect_pw()
+
 @when('Store original windows')
 def store_original_windows(context):
     context.original_window = context.app.base_page.get_current_window()
@@ -44,3 +53,8 @@ def verify_user_logged_in(context):
 @then('Verify Terms and Conditions page is opened')
 def verify_terms_conditions_opened(context):
     context.app.terms_conditions_page.verify_terms_conditions_opened()
+
+
+@then("Verify {text_message} message")
+def verify_message(context, text_message):
+    context.app.sign_in_page.verify_error_message(text_message)

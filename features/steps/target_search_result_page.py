@@ -8,6 +8,9 @@ from time import sleep
 ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[data-test='addToCartButton']")
 SEARCH_PRODUCT_IMG = (By.CSS_SELECTOR, "[class*='PictureSecondary']")
 SEARCH_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='product-title']")
+LISTINGS = (By.CSS_SELECTOR, "[data-test='@web/site-top-of-funnel/ProductCardWrapper']")
+PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
+PRODUCT_IMG = (By.CSS_SELECTOR, "[class*='ProductCardImage']")
 
 
 @when('Click on Add to Cart button')
@@ -59,3 +62,17 @@ def verify_products_image(context):
 def verify_product_name(context):
     product_names = context.driver.find_elements(*SEARCH_PRODUCT_NAME)
     assert len(product_names) == 4, f"Only {len(product_names)} have images"
+
+
+@then('Verify that every product has a name and an image')
+def verify_products_name_img(context):
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+    sleep(2)
+    context.driver.execute_script("window.scrollBy(0,2000)", "")
+
+    all_products = context.driver.find_elements(*LISTINGS)
+    for product in all_products:
+        title = product.find_element(*PRODUCT_TITLE).text
+        print(title)
+        assert title, 'Product title not shown'
+        product.find_element(*PRODUCT_IMG)

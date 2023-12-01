@@ -69,3 +69,7 @@ def verify_help_link_options(context):
 @then('Verify browse all help pages header')
 def verify_browse_all_help_pages_header(context):
     context.driver.find_element(*BROWSE_ALL_HELP_HEADER)
+
+@then('Verify circle page is loaded')
+def verify_circle_page(context):
+    context.app.help_page.verify_circle_page_opened()
