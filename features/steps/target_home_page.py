@@ -27,3 +27,14 @@ def confirm_sign_in(context):
 @when('Click on cart icon')
 def click_on_cart_icon(context):
     context.app.main_page.click_on_cart_icon()
+
+
+@when('Hover over signin')
+def hover_signin(context):
+    context.app.main_page.hover_over_signin()
+
+
+@then('Verify signin arrow shown')
+def verify_arrow(context):
+    context.app.main_page.verify_signin_arrow_shown()
+

@@ -46,8 +46,8 @@ class Page:
 
     def wait_for_element_appear(self, *locator):
         element = self.wait.until(
-            EC.visibility_of_element_located(locator),
-            message=f'Element by {locator} not visible'
+            EC.presence_of_element_located(locator),
+            message=f'Element by {locator} not apper'
         )
         return element
 
@@ -56,6 +56,13 @@ class Page:
             EC.invisibility_of_element_located(locator),
             message=f'Element by {locator} is still visible'
         )
+
+    def wait_for_element_visible(self, *locator):
+        element = self.wait.until(
+            EC.visibility_of_element_located(locator),
+            message=f'Element by {locator} not visible'
+        )
+        return element
 
     def wait_for_url_to_change(self, initial_url):
         self.wait.until(

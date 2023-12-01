@@ -1,6 +1,7 @@
 from pages.base_page import Page
 from pages.circle_page import CirclePage
 from pages.cart_page import CartPage
+from pages.help_page import HelpPage
 from pages.main_page import MainPage
 from pages.partner_page import PartnerPage
 from pages.product_details_page import ProductDetailsPage
@@ -15,6 +16,7 @@ class Application:
 
         self.cart_page = CartPage(driver)
         self.circle_page = CirclePage(driver)
+        self.help_page = HelpPage(driver)
         self.main_page = MainPage(driver)
         self.partner_page = PartnerPage(driver)
         self.product_details_page = ProductDetailsPage(driver)
